@@ -1,28 +1,29 @@
 import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import NavBar from "./NavBar";
-import LoginPage from "./LoginPage";
-import MovieListPage from "./MovieListPage";
-import MovieDetailPage from "./MovieDetailPage";
-import ActorListPage from "./ActorListPage";
+import NavBar from "../../components/NavBar/NavBar";
+import LoginPage from "../LoginPage/LoginPage";
+import MovieListPage from "../MovieListPage/MovieListPage";
+import MovieDetailPage from "../MovieDetailPage/MovieDetailPage";
+import ActorListPage from "../ActorPage/ActorListPage";
 
 function App() {
   const [user, setUser] = useState(null);
   return (
-    <main>
+    <main className="App">
       <h1>App</h1>
       {user ? (
         <>
-          <NavBar />
+          <NavBar user={user} />
           <Routes>
-            <Route path="/" element={<LoginPage />} />
-            <Route path="/movies" element={<MovieListPage />} />
+            <Route path="/" element={<MovieListPage />} />
             <Route path="/movies/:movieName" element={<MovieDetailPage />} />
             <Route path="/actors" element={<ActorListPage />} />
           </Routes>
         </>
-      ) : null}
+      ) : (
+        <LoginPage setUser={setUser} />
+      )}
     </main>
   );
 }
